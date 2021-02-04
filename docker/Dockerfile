@@ -10,6 +10,9 @@ RUN mkdir -p /var/log/postgresql
 RUN chmod -R 755 /var/log/postgresql
 RUN chown -R postgres:postgres /var/log/postgresql
 
+# Set Azure cert for TLS
+RUN wget https://www.digicert.com/CACerts/BaltimoreCyberTrustRoot.crt
+RUN openssl x509 -inform DER -in BaltimoreCyberTrustRoot.crt -text -out /etc/azure/root.crt
 
 ENV PG_CONFIG /etc/pgbouncer/pgbouncer.ini
 ENV PG_USER postgres
